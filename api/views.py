@@ -1,12 +1,14 @@
+
 from .serializers import UserSerializer
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
 from rest_framework.permissions import IsAdminUser
+
 from django.contrib.auth.models import User
 from .serializers import NoteSerializer
-from .models import Note
+from .models import MobileUser, Note
 from rest_framework.parsers import FileUploadParser, MultiPartParser
 
 class UserRecordView(APIView):
@@ -38,6 +40,16 @@ class UserRecordView(APIView):
             status=status.HTTP_400_BAD_REQUEST
         )
 
+class MobileUserRecordView(APIView):
+    
+    permission_classes = [IsAdminUser]
+
+    def get(self, format=None):
+        mobileUser = MobileUser.objects.all()
+        serializer = UserSerializer(mobileUser, many=True)
+        return Response(serializer.data)
+
+    
 @api_view(['GET'])
 def getRoutes(request):
     routes = [

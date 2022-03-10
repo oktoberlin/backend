@@ -1,9 +1,8 @@
-from django.db import models
-from django.db.models import fields
+from pyexpat import model
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueTogetherValidator
 from rest_framework.serializers import ModelSerializer
-from .models import Note
+from .models import MobileUser, Note
 
 class UserSerializer(ModelSerializer):
 
@@ -26,6 +25,10 @@ class UserSerializer(ModelSerializer):
             )
         ]
 
+class MobileUserSerializer(ModelSerializer):
+    class Meta:
+        model = MobileUser
+        fields = '_all__'
 class NoteSerializer(ModelSerializer):
     class Meta:
         model = Note

@@ -1,10 +1,10 @@
-from statistics import mode
-from time import time
 from django.db import models
-import datetime
 
-
-
+class MobileUser(models.Model):
+    username = models.TextField()
+    password= models.TextField()
+    def __str__(self):
+        return self.username
 class Note(models.Model):
     id = models.CharField(max_length=128,primary_key=True)
     theBorrower = models.TextField()

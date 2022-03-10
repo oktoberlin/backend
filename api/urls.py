@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import UserRecordView
+from .views import UserRecordView, MobileUserRecordView
 urlpatterns = [
     path('', views.getRoutes),
     path('notes/', views.getNotes),
@@ -8,5 +8,6 @@ urlpatterns = [
     path('notes/<str:pk>/update/', views.updateNote),
     path('notes/<str:pk>/delete/', views.deleteNote),
     path('notes/<str:pk>/', views.getNote),
-    path('user/', UserRecordView.as_view(), name='users'),
+    path('users/', UserRecordView.as_view(), name='users'),
+    path('mobile-users/', MobileUserRecordView.as_view(), name='mobile-users'),
 ]
