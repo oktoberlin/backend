@@ -81,19 +81,36 @@ def createNote(request):
     data = request.data
     #images = request.FILES.getlist(data['imagePaths'])
     #for image in images:
-    note = Note.objects.create(
-        id=data['id'],
-        theBorrower=data['theBorrower'],
-        nominal=data['nominal'],
-        description=data['description'],
-        imagePaths=data['imagePaths'],
-        createdTime=data['createdTime'],
-        editedTime=data['createdTime'],
-        createdBy=data['createdBy'],
-        isDeleted=data['isDeleted']
-    )
-    serializer = NoteSerializer(note, many=False)
-    return Response(serializer.data)
+
+    if data['imagePaths'] is not None or data['imagePaths'] != "" :
+        note = Note.objects.create(
+            id=data['id'],
+            theBorrower=data['theBorrower'],
+            nominal=data['nominal'],
+            description=data['description'],
+            imagePaths=data['imagePaths'],
+            createdTime=data['createdTime'],
+            editedTime=data['createdTime'],
+            createdBy=data['createdBy'],
+            isDeleted=data['isDeleted']
+        )
+        serializer = NoteSerializer(note, many=False)
+        return Response(serializer.data)
+    else:
+        note = Note.objects.create(
+            id=data['id'],
+            theBorrower=data['theBorrower'],
+            nominal=data['nominal'],
+            description=data['description'],
+            imagePaths="",
+            createdTime=data['createdTime'],
+            editedTime=data['createdTime'],
+            createdBy=data['createdBy'],
+            isDeleted=data['isDeleted']
+        )
+        serializer = NoteSerializer(note, many=False)
+        return Response(serializer.data)
+    
 
 @api_view(['PUT'])
 def updateNote(request, pk):
