@@ -10,7 +10,7 @@ class Note(models.Model):
     theBorrower = models.TextField()
     nominal = models.TextField()
     description = models.CharField(max_length=200, blank=True)
-    imagePaths = models.ImageField(upload_to='images',default='test.jpg',null=False, blank=False)
+    imagePaths = models.ImageField(upload_to='images',default='test.jpg',null=True, blank=True)
     createdTime=  models.DateTimeField(auto_now_add=True)
     editedTime = models.DateTimeField(auto_now=True)
     createdBy = models.TextField()
