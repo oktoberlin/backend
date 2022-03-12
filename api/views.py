@@ -81,8 +81,7 @@ def createNote(request):
     data = request.data
     #images = request.FILES.getlist(data['imagePaths'])
     #for image in images:
-
-    if data['imagePaths'] is not None or data['imagePaths'] != "" :
+    if request.FILES.get('imagePaths') is not None :
         note = Note.objects.create(
             id=data['id'],
             theBorrower=data['theBorrower'],
