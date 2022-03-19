@@ -51,13 +51,13 @@ class DataSupirRecordView(APIView):
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def createDataSupir(request):
+def createDataSupir(request, format=None):
     
     
     data = request.data
    
     dataSupir = DataSupir.objects.create(
-        idSupir=data['idSupir'],
+        idSup=data['idSupir'],
         namaSupir=data['namaSupir'],
         passSupir=data['passSupir'],
         jenis = data['jenis'],

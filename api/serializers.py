@@ -28,12 +28,12 @@ class UserSerializer(ModelSerializer):
 class MobileUserSerializer(ModelSerializer):
     class Meta:
         model = MobileUser
-        fields = '_all__'
+        fields = '__all__'
 
 class DataSupirSerializer(ModelSerializer):
     class Meta:
         model = DataSupir
-        fields = '_all__'
+        fields = ['idSup','namaSupir','passSupir','jenis','noPol']
 class NoteSerializer(ModelSerializer):
     class Meta:
         model = Note
