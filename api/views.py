@@ -1,14 +1,14 @@
 
-from .serializers import UserSerializer
+from .serializers import DataSupirSerializer, MobileUserSerializer, UserSerializer
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAdminUser
-
+from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 from .serializers import NoteSerializer
-from .models import MobileUser, Note
+from .models import MobileUser, DataSupir, Note
 from rest_framework.parsers import FileUploadParser, MultiPartParser
 
 class UserRecordView(APIView):
@@ -40,6 +40,34 @@ class UserRecordView(APIView):
             status=status.HTTP_400_BAD_REQUEST
         )
 
+class DataSupirRecordView(APIView):
+    
+    permission_classes = [IsAdminUser]
+
+    def get(self, format=None):
+        mobileUser = DataSupir.objects.all()
+        serializer = DataSupirSerializer(mobileUser, many=True)
+        return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def createDataSupir(request):
+    
+    
+    data = request.data
+   
+    dataSupir = DataSupir.objects.create(
+        idSupir=data['idSupir'],
+        namaSupir=data['namaSupir'],
+        passSupir=data['passSupir'],
+        jenis = data['jenis'],
+        noPol=data['noPol'],
+      
+    )
+    serializer = DataSupirSerializer(dataSupir, many=False)
+    return Response(serializer.data)
+    
+    
 class MobileUserRecordView(APIView):
     
     permission_classes = [IsAdminUser]
@@ -48,7 +76,6 @@ class MobileUserRecordView(APIView):
         mobileUser = MobileUser.objects.all()
         serializer = UserSerializer(mobileUser, many=True)
         return Response(serializer.data)
-
     
 @api_view(['GET'])
 def getRoutes(request):
@@ -84,8 +111,11 @@ def createNote(request):
     if request.FILES.get('imagePaths') is not None :
         note = Note.objects.create(
             id=data['id'],
+            idSupir=data['idSupir'],
             theBorrower=data['theBorrower'],
+            platNomor = data['platNomor'],
             nominal=data['nominal'],
+            jumlahRit = data['jumlahRit'],
             description=data['description'],
             imagePaths=data['imagePaths'],
             createdTime=data['createdTime'],
@@ -98,8 +128,11 @@ def createNote(request):
     else:
         note = Note.objects.create(
             id=data['id'],
+            idSupir=data['idSupir'],
             theBorrower=data['theBorrower'],
+            platNomor = data['platNomor'],
             nominal=data['nominal'],
+            jumlahRit = data['jumlahRit'],
             description=data['description'],
             imagePaths="",
             createdTime=data['createdTime'],

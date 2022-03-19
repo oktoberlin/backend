@@ -5,10 +5,22 @@ class MobileUser(models.Model):
     password= models.TextField()
     def __str__(self):
         return self.username
+
+class DataSupir(models.Model):
+    idSup = models.TextField()
+    namaSupir = models.TextField()
+    passSupir = models.TextField()
+    jenis = models.TextField()
+    noPol = models.TextField()
+    def __str__(self):
+        return self.namaSupir
 class Note(models.Model):
     id = models.CharField(max_length=128,primary_key=True)
+    idSupir = models.CharField(max_length=100, default='',null=False, blank=False)
     theBorrower = models.TextField()
+    platNomor = models.CharField(max_length=100, default='',null=False, blank=False)
     nominal = models.TextField()
+    jumlahRit = models.CharField(max_length=100,default='',null=False, blank=False)
     description = models.CharField(max_length=200, blank=True)
     imagePaths = models.ImageField(upload_to='images',default='test.jpg',null=True, blank=True)
     createdTime=  models.DateTimeField(auto_now_add=True)
