@@ -84,10 +84,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dkm_debt_notes',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'admin',
+        'PASSWORD': '!@#$%',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '3309',
         'OPTIONS': {
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
     },
